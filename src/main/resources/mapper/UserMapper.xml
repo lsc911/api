@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fh.mapper.UserMapper">
+
+
+
+    <insert id="addVip" parameterType="com.fh.model.po.Vip" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into shop_vip (userName,userPhone,brithday,userImg,areaIds)
+         values (#{userName},#{userPhone},#{brithday},#{userImg},#{areaIds})
+    </insert>
+
+
+    <select id="queryVipByIphone" resultType="com.fh.model.po.Vip">
+        select * from shop_vip where userPhone = #{iphone} or userName = #{iphone}
+    </select>
+
+</mapper>

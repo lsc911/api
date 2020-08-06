@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 -->
+
+<mapper namespace="com.fh.mapper.OrderGoodsMapper">
+
+    <insert id="batchAdd">
+        insert  into order_detail (goodsId,count,orderId) values
+        <foreach collection="list" separator="," item="pro">
+            (#{pro.goodsId},#{pro.count},#{oid})
+        </foreach>
+    </insert>
+
+
+
+</mapper>

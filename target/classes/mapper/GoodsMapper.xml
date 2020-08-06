@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+   例如namespace="com.szh.mapper.personMapper"就是com.szh.mapper(包名)+personMapper(personMapper.xml文件去除后缀) -->
+<mapper namespace="com.fh.mapper.GoodsMapper">
+
+
+    <!--热销-->
+     <select id="queryHotGoods" resultType="com.fh.model.po.Goods">
+         select * from shop_goods where ishot=1
+     </select>
+
+    <!--根据商品id查询商品-->
+    <select id="queryAllDataById" parameterType="com.fh.util.PageBean" resultType="com.fh.model.po.Goods">
+       select * from shop_goods where id=#{id}
+    </select>
+
+
+    <select id="queryAllData" parameterType="com.fh.model.po.Goods" resultType="com.fh.model.po.Goods">
+        select * from shop_goods
+        <where>
+            <if test="typeId != null and typeId != ''">
+                typeId like CONCAT('%',#{typeId},'%');
+            </if>
+        </where>
+    </select>
+
+
+    <select id="queryGoodsCartById" parameterType="java.lang.Integer" resultType="com.fh.model.vo.GoodsCart">
+         select id,name,imgPath,price from shop_goods where id=#{id}
+    </select>
+
+    <update id="updateGoodsCount">
+        update shop_goods set storyCount=storyCount-#{count} where id=#{id} and storyCount-#{count}>=0
+    </update>
+
+</mapper>
